@@ -19,27 +19,29 @@ def get_dist(meteor):
      print(meteor['name'])
      return meteor.get('distance', math.inf)
 
-my_long = float(input('Please enter your LON:'))
-if not type(my_long) is float :
-	print('Sorry, using 45.ish')
-	my_long = 45.314786
+if __name__ == '__main__' :
 
-try:
-	my_lat = float(input('Please give your LAT:'))
-except Exception as e:
-	print("Sorry, can't convert. Using 6.ish instead.")
-	my_lat = 6.656660
-	
-my_loc = (my_long, my_lat)
+    my_long = float(input('Please enter your LON:'))
+    if not type(my_long) is float :
+    	print('Sorry, using 45.ish')
+    	my_long = 45.314786
 
-meteor_resp = requests.get('https://data.nasa.gov/resource/gh4g-9sfh.json')
-meteor_data = meteor_resp.json()
+    try:
+    	my_lat = float(input('Please give your LAT:'))
+    except Exception as e:
+    	print("Sorry, can't convert. Using 6.ish instead.")
+    	my_lat = 6.656660
+    	
+    my_loc = (my_long, my_lat)
 
-for meteor in meteor_data:
-	if not ('reclat' in meteor and 'reclong' in meteor ) : continue
-	meteor['distance'] = calc_dist(float(meteor['reclat']), float(meteor['reclong']),my_loc[0],my_loc[1])
+    meteor_resp = requests.get('https://data.nasa.gov/resource/gh4g-9sfh.json')
+    meteor_data = meteor_resp.json()
+
+    for meteor in meteor_data:
+    	if not ('reclat' in meteor and 'reclong' in meteor ) : continue
+    	meteor['distance'] = calc_dist(float(meteor['reclat']), float(meteor['reclong']),my_loc[0],my_loc[1])
 
 
-meteor_data.sort(key=get_dist)
+    meteor_data.sort(key=get_dist)
 
-print(meteor_data[0:10])
+    print(meteor_data[0:10])

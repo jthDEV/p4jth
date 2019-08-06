@@ -17,3 +17,15 @@ def get_dist(meteor):
 In [33]: meteor_data.sort(key=get_dist)
 
 #the sort function (of list) gets a another function passed, determinig the value of the key. see https://www.programiz.com/python-programming/methods/list/sort for more 
+
+# Transform list of keys into dictionairy:
+# Assuming i.tags is a dictionary with two keys [{'Key':'Project','Value':'pip4train'}]
+
+dict = {} #init new dictionairy
+
+dict = {t['Key'] : t['Value'] for t in i.tags} #loop through dictionairy and create new key value pairs per "entry"
+
+resulting in => dict = {'Project':'pip4train'}
+
+
+
