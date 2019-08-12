@@ -23,7 +23,8 @@ In [33]: meteor_data.sort(key=get_dist)
 
 dict = {} #init new dictionairy
 
-dict = {t['Key'] : t['Value'] for t in i.tags} #loop through dictionairy and create new key value pairs per "entry"
+dict = {t['Key'] : t['Value'] for t in i.tags or []} #loop through dictionairy and create new key value pairs per "entry"
+# the or [] will provide an empty list, if the dict is empty, which will end up in a empty dict. This will cope with the case if None will be returned.
 
 resulting in => dict = {'Project':'pip4train'}
 
